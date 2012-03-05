@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:http="http://www.springframework.org/schema/http"	
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/http http://www.springframework.org/schema/http/spring-embedded-http.xsd">
+	
+	<http:embedded-server>
+		<http:config port-number="8085"/>
+				
+		<http:webapp context-path="/testservletmap">
+			<http:servlet-mapping servlet-ref="helloServlet" url-pattern="/hello"/>
+		</http:webapp>
+		
+		<http:webapp context-path="/testwar">
+			<http:war location="classpath:testapp.war"/>
+		</http:webapp>
+		
+		<http:webapp context-path="/testwebappdir">
+			<http:webapp-dir location="src/test/resources/testwebapproot"/>
+		</http:webapp>		
+	</http:embedded-server>
+	
+	<bean id="helloServlet" class="org.springframework.http.embedded.TestHttpServlet"/>
+</beans>

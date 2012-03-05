@@ -1,0 +1,198 @@
+<xsd:schema xmlns="http://www.springframework.org/schema/http"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:tool="http://www.springframework.org/schema/tool"
+	targetNamespace="http://www.springframework.org/schema/http"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:import namespace="http://www.springframework.org/schema/beans" />
+	<xsd:import namespace="http://www.springframework.org/schema/tool" />
+
+	<xsd:annotation>
+		<xsd:documentation><![CDATA[
+			The sandbox for providing embedded HTTP server support in spring
+		]]>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:element name="embedded-server">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[
+				The element that will be used to define the embedded http server in spring config 
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="config" minOccurs="0" maxOccurs="1" />
+				<xsd:element ref="webapp" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attributeGroup ref="embeddedServerAtributes" />
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:attributeGroup name="embeddedServerAtributes">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[
+				The attributes for the embedded server element 
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="type" default="JETTY" use="optional"
+			type="serverTypes">
+			<xsd:annotation>
+				<xsd:documentation>
+					<![CDATA[
+						The attribute specifying the type of the embedded server that is to be used, the value
+						defaults to JETTY
+					]]>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:attributeGroup>
+
+	<xsd:element name="webapp">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+					The child element of the embeded-server node that contains the details of the
+					web application to be deployed
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:choice>
+					<xsd:element ref="servlet-mapping" minOccurs="1" maxOccurs="unbounded" />
+					<xsd:element ref="war" minOccurs="1" maxOccurs="1" />
+					<xsd:element ref="webapp-dir" minOccurs="1" maxOccurs="1" />
+				</xsd:choice>
+			</xsd:sequence>
+			<xsd:attribute name="context-path" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[
+							The attribute of the web app element that gives the context path of the
+							web application that needs to be deployed
+						]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="servlet-mapping">
+		<xsd:annotation>
+			<xsd:documentation>
+				The child element of the webapp element that is
+				used to provide the
+				mapping of the servlet instances to a url pattern withing the web app
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="servlet-ref" type="xsd:string"
+				use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[
+							The value is a reference to a bean in the context
+							that is of type javax.servlet.http.HttpServlet 							 
+						]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="url-pattern" type="xsd:string"
+				use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[
+							The value is a url pattern for the servlet within the 
+							web application						 
+						]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="war">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+					The child element of webapp element that will be used to give the
+					location of the war file to be deployed, this location can be either absolute
+					or be a location with classpath in which case it will be prefixed with "classpath:" 
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="location">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[
+							The location of the war file, either absolute or in the claspath
+						]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="webapp-dir">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[
+					Use this child element of the webapp element to specify a base directory for the 
+					web application					 
+				]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="location">
+				<xsd:annotation>
+					<xsd:documentation>
+						<![CDATA[
+							This value gives the absolute location of the directory that will be 
+							the root of the web application 
+						]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="config">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[
+				An optional child element of embedded-server that is used to give 
+				the configurations of the embedded server like port no, 
+				whether to use SSL and its configurations like location of certificate file (TODO)
+				and other implementation specific config if any (TODO)
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="port-number" type="xsd:integer"
+				default="8080">
+				<xsd:annotation>
+					<xsd:documentation>
+							<![CDATA[
+								The port on which the embedded server listens to
+							]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:simpleType name="serverTypes">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[
+				The enumeration of the list of supported server types
+			]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="JETTY" />
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

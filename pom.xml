@@ -1,0 +1,95 @@
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-embedded-http</artifactId>
+	<version>3.2.0.BUILD-SNAPSHOT</version>
+	<name>Sandbox project for the namespace support for embedded http servers in spring</name>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+		
+	<properties>
+		<commons.logging.version>1.1.1</commons.logging.version>		
+		<junit.version>4.8.2</junit.version>	
+		<spring.framework.version>3.1.0.RELEASE</spring.framework.version>
+		<jetty.server.version>7.5.1.v20110908</jetty.server.version>
+		<log4j.version>1.2.16</log4j.version>
+		<servlet.api.version>2.5</servlet.api.version>
+		<spring.version>3.1.0.RELEASE</spring.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>		
+		<dependency>
+    		<groupId>commons-logging</groupId>
+    		<artifactId>commons-logging</artifactId>
+    		<version>${commons.logging.version}</version>    		
+		</dependency>
+		<dependency>
+    		<groupId>log4j</groupId>
+    		<artifactId>log4j</artifactId>
+    		<version>${log4j.version}</version>    		
+		</dependency>
+		<dependency>
+      		<groupId>org.eclipse.jetty</groupId>
+      		<artifactId>jetty-server</artifactId>
+      		<version>${jetty.server.version}</version>
+      		<optional>true</optional>
+    	</dependency>
+    	<dependency>
+      		<groupId>org.eclipse.jetty</groupId>
+      		<artifactId>jetty-servlet</artifactId>
+      		<version>${jetty.server.version}</version>
+      		<optional>true</optional>
+    	</dependency>
+    	<dependency>
+      		<groupId>org.eclipse.jetty</groupId>
+      		<artifactId>jetty-webapp</artifactId>
+      		<version>${jetty.server.version}</version>
+      		<optional>true</optional>
+    	</dependency>
+		<dependency>
+      		<groupId>junit</groupId>
+      		<artifactId>junit-dep</artifactId>
+      		<version>${junit.version}</version>
+      		<scope>test</scope>
+    	</dependency>
+    	<dependency>
+    		<groupId>javax.servlet</groupId>
+    		<artifactId>servlet-api</artifactId>
+    		<version>${servlet.api.version}</version>
+    	</dependency>
+    	<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-core</artifactId>
+    		<version>${spring.version}</version>
+    	</dependency>
+    	<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-beans</artifactId>
+    		<version>${spring.version}</version>
+    	</dependency>
+    	<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-context</artifactId>
+    		<version>${spring.version}</version>
+    	</dependency>
+    	<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-test</artifactId>
+    		<version>${spring.version}</version>
+    		<scope>test</scope>
+    	</dependency>
+    	
+	</dependencies>
+</project>
