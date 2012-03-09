@@ -36,7 +36,6 @@ You can find a couple of test cases under src/test/java source folder.
 * Accept implementation specific configurations
 * Enable SSL support
 * Enable JMX support to start/stop server and view server status.
-* Some cleanup, like stopping the server while context destruction etc.
 
 
 I have raised a JIRA https://jira.springsource.org/browse/SPR-9196 for this enhancements.

@@ -20,6 +20,7 @@ import static org.springframework.http.embedded.EmbeddedServerType.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -29,7 +30,7 @@ import org.springframework.beans.factory.InitializingBean;
  * @author Amol Nayak
  *
  */
-public class EmbeddedServerFactory implements FactoryBean<EmbeddedServer>,InitializingBean {
+public class EmbeddedServerFactory implements FactoryBean<EmbeddedServer>,InitializingBean,DisposableBean {
 	
 	private static final Log logger = LogFactory.getLog(EmbeddedServerFactory.class);
 	
@@ -38,7 +39,14 @@ public class EmbeddedServerFactory implements FactoryBean<EmbeddedServer>,Initia
 	private EmbeddedServerType type;
 	private EmbeddedServer server;
 	
-	//TODO: Stop the server on context destruction
+	
+
+	@Override
+	public void destroy() throws Exception {
+		//Stop the server
+		if(server != null)
+			server.stop();
+	}
 
 	@Override
 	public void afterPropertiesSet() throws Exception {

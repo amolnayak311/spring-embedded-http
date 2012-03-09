@@ -35,6 +35,6 @@ public class EmbeddedServerNamespaceTest {
 	@Test
 	public void sleep() throws Exception {
 		logger.info("Started embedded server");
-		Thread.sleep(Integer.MAX_VALUE);
+		Thread.sleep(5000);
 	}
 }
